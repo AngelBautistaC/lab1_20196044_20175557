@@ -1,4 +1,5 @@
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -48,15 +49,44 @@
             <h2>Editar Juego</h2>
         </div>
         <div class="container-fluid">
-                <form method="POST">
-                    <!-- Completar -->
-                    <!-- Completar -->
-                    <!-- Completar -->
-                    <!-- Completar -->
+            <form method="POST" th:action="@{'/juegos/guardar'}">
 
-                    <a  class="btn btn-danger">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
+                <input th:value="${juegos.id}" name="id" id="id"  type="hidden"/>
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input th:value="${juegos.nombre}" name="nombre" id="nombre"  class="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input th:value="${juegos.descripcion}" name="descripcion" id="descripcion"  class="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Plataforma</label>
+                    <select class="form-select"  id="plataforma" name="idplataforma">
+
+                        <option th:each="plataformas:${listado}"
+                                th:value="${plataformas.id}"
+                                th:text="${plataformas.nombre}"
+                                th:selected="${plataformas.id == juegos.idplataforma.id}"
+                        >
+
+                        </option>
+
+
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input th:value="${juegos.precio}" name="precio" id="precio"  class="form-control"/>
+                </div>
+
+                <a href="/juegos/lista" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
         </div>
         </main>
     </div>
