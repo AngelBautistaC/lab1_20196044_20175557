@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pe.edu.pucp.gtics.lab1221.entity.Distributors;
 import pe.edu.pucp.gtics.lab1221.repository.DistributorsRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/distribuidoras")
@@ -29,9 +31,19 @@ public class DistributorsController {
         return "distribuidoras/lista";
     }
 
-    public String editarDistribuidoras(){
-        return "";
-    };
+    @GetMapping("/editar")
+    public String editarDistribuidoras(Model model,
+                                       @RequestParam("id") int id) {
+        Optional<Distributors> optDistribuidora = distributorsRepository.findById(id);
+
+        if(optDistribuidora.isPresent()){
+            Distributors distributors =optDistribuidora.get();
+            model.addAttribute("distributors", distributors);
+            return "distribuidoras/editar";
+        } else {
+            return "redirect:/distribuidoras/listar";
+        }
+    }
 
 
     @GetMapping(value={"/nuevo"})
@@ -41,8 +53,7 @@ public class DistributorsController {
         return "/distribuidoras/nuevo";
     }
 
-
-    @PostMapping(value={"/guardar"})
+    @PostMapping("/guardar")
     public String guardarDistribuidora(Distributors distribuidoras){
         distributorsRepository.save(distribuidoras);
         return "redirect:/distribuidoras/lista";
