@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="juegos")
 public class Games {
-    /** Completar*/
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,14 +15,14 @@ public class Games {
     @Column(name="nombre", length = 50)
     private String nombre;
 
-    @Column(name="descripción", length = 200)
+    @Column(name="descripcion", length = 200)
     private String descripcion;
 
     @Column(name="precio")
     private Double precio;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name="idplataforma")
+    @JoinColumn(name="idplataforma")
     private Platforms idplataforma;
 
     public Integer getId() {
