@@ -1,4 +1,5 @@
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -64,12 +65,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <!-- Completar -->
-                        <!-- Completar -->
-                        <!-- Completar -->
-                        <!-- Completar -->
-                        <td><a class="btn btn-primary" href="/distribuidoras/editar?id=4">Editar</a></td>
+                    <tr th:each="distribuid,info:${distribuidoraslista}">
+                        <td th:text="${info.index + 1}"></td>
+                        <td th:text="${distribuid.nombre}"></td>
+                        <td th:text="${distribuid.fundacion}"></td>
+                        <td th:text="${distribuid.sede}"></td>
+
+                        <td><a class="btn btn-primary" th:href="@{'/distribuidoras/editar' + '?id=' + ${distribuid.id}}">Editar</a></td>
                         <td><a class="btn btn-danger" href="/distribuidoras/borrar?id=4">Borrar</a></td>
                     </tr>
                     </tbody>
