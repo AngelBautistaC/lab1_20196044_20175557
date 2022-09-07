@@ -32,13 +32,18 @@ public class DistributorsController {
         return "";
     };
 
-    public String nuevaDistribuidora(){
-        return "";
-    };
 
-    public String guardarDistribuidora(){
-        return "";
-    };
+    @GetMapping(value={"/nuevo"})
+    public String nuevaDistribuidora(){
+
+
+        return "/distribuidoras/nuevo";
+    }
+
+    public String guardarDistribuidora(Distributors distribuidoras){
+        distributorsRepository.save(distribuidoras);
+        return "redirect:/distribuidoras/lista";
+    }
 
     public String borrarDistribuidora(){
         return "";
